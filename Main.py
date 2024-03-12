@@ -3,9 +3,10 @@
 # Author of the GUI : powen
 
 # import
+from PyQt5 import QtCore
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PySide2 import QtCore
+
 import subprocess
 import requests
 import os
@@ -53,7 +54,7 @@ with open(resource_path("version"), "r", encoding="utf-8") as f:
 LatestVersion = ""
 
 # Function part
-@QtCore.Slot()
+@QtCore.pyqtSlot()
 def about_message():
     msg_box = QMessageBox()
     msg_box.setIconPixmap(QPixmap(resource_path("Icon@128.png")))
@@ -72,7 +73,7 @@ def about_message():
     msg_box.exec()
 
 
-@QtCore.Slot()
+@QtCore.pyqtSlot()
 def Installation():
     DeviceCheck = subprocess.run("idevicepair pair", shell=True)
     if DeviceCheck.returncode == 1:
@@ -220,19 +221,19 @@ def Installation():
         AccountArea.exec()
 
 
-@QtCore.Slot()
+@QtCore.pyqtSlot()
 def pair():
     subprocess.run("idevicepair pair", shell=True)
 
 
-@QtCore.Slot()
+@QtCore.pyqtSlot()
 def restart_daemon():
     subprocess.run(f"killall {AltServer}", shell=True)
     subprocess.run("idevicepair pair", shell=True)
     subprocess.run(f"{AltServer} &> /dev/null &", shell=True)
 
 
-@QtCore.Slot()
+@QtCore.pyqtSlot()
 def check_update():
     # Only check update for Ubuntu/Debian
     if not shutil.which("dpkg"):
@@ -344,7 +345,7 @@ def check_update():
 
 
 # Show update avaliable message
-@QtCore.Slot()
+@QtCore.pyqtSlot()
 def UpdateNotification():
     if internet_stat():
         LatestVersion = requests.get(
