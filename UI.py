@@ -15,6 +15,8 @@ if using_resource_altserver:
         subprocess.run(f"chmod +x {AltServer}", shell=True)
     if not os.access(AutoStart, os.X_OK):
         subprocess.run(f"chmod +x {AutoStart}", shell=True)
+    if not os.access(NetMuxd, os.X_OK):
+        subprocess.run(f"chmod +x {NetMuxd}", shell=True)
 
 # UI part
 app = QApplication(sys.argv)
